@@ -7,43 +7,68 @@ import ThemedView from '../components/ThemedView'
 import ThemedButton from '../components/ThemedButton'
 import Spacer from '../components/Spacer'
 import { useRouter } from 'expo-router'
+import { useNotification } from '../context/NotificationContext'
+import { StatusBar } from 'expo-status-bar'
 
 const Home = () => {
-  const router = useRouter();
-  return (
+    const router = useRouter();
+  const { expoPushToken, notification, error } = useNotification();
+
+  if (error) {
+    return <ThemedText style={{ color: 'red' }}>
+          Error: {error.message}
+        </ThemedText>
+  }
+  console.log(JSON.stringify(notification, null, 2 ));
+
+
+  // return (
+  //   <ThemedView style={styles.container}>
+  //     <Image source={Butterfly} style={styles.img} />
+
+  //     <ThemedText style={styles.title} title={true}>React Native</ThemedText>
+
+  //     <Spacer height ={20} />
+
+  //     <ThemedView style={styles.card}>
+  //       <ThemedText>Hello, Welcome to React Native-QR Scanning code App</ThemedText>
+  //     </ThemedView>
+
+      
+  //     <Spacer height ={30} />
+
+  //     <ThemedButton
+  //        onPress={() => router.push('/Scanner/scanner')}>
+  //       <ThemedText style={styles.buttonText}>Open QR Scanner</ThemedText>
+  //       </ThemedButton>
+
+  //     <Link href="/login" style={styles.link}>
+  //     <ThemedText>Login Page</ThemedText></Link>
+    
+  //     <Link href="/register" style={styles.link}>
+  //     <ThemedText>Register Page</ThemedText></Link>
+
+      
+  //     <Link href="/profile" style={styles.link}>
+  //     <ThemedText>Profile Page</ThemedText></Link>
+    
+  //   </ThemedView>
+  // )
+  return(
     <ThemedView style={styles.container}>
-      <Image source={Butterfly} style={styles.img} />
-
-      <ThemedText style={styles.title} title={true}>React Native</ThemedText>
-
-      <Spacer height ={20} />
-
-      <ThemedView style={styles.card}>
-        <ThemedText>Hello, Welcome to React Native</ThemedText>
-      </ThemedView>
-
-      
-      <Spacer height ={30} />
-
-      <ThemedButton
-         onPress={() => router.push('/Scanner/scanner')}>
+       <Image source={Butterfly} style={styles.img} />
+      <ThemedText type="subtitle">Expo Push Token:</ThemedText>
+      <ThemedText selectable>{expoPushToken}</ThemedText>
+      <Spacer height={20} />
+      <ThemedText type="subtitle">Notification Data:</ThemedText>
+      <ThemedText >
+        { JSON.stringify(notification?. request?.content?.data, null, 2) }
+      </ThemedText>
+      <Spacer height={30} />
+      <ThemedButton onPress={() => router.push('/Scanner/scanner')}>
         <ThemedText style={styles.buttonText}>Open QR Scanner</ThemedText>
-        </ThemedButton>
-
-      {/* <Link href="/Scanner/scanner" style={styles.link}>
-      <ThemedText>Scan QR Code</ThemedText>
-      </Link> */}
-
-      <Link href="/login" style={styles.link}>
-      <ThemedText>Login Page</ThemedText></Link>
-    
-      <Link href="/register" style={styles.link}>
-      <ThemedText>Register Page</ThemedText></Link>
-
-      
-      <Link href="/profile" style={styles.link}>
-      <ThemedText>Profile Page</ThemedText></Link>
-    
+      </ThemedButton>
+      <StatusBar style="auto" />
     </ThemedView>
   )
 }
