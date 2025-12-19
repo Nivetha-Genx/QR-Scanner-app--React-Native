@@ -7,7 +7,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -37,8 +37,33 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      [
+    "react-native-android-widget",
+    {
+      "widgets": [
+        {
+          "name": "QrScannerWidget",
+          "label": "QR Scanner Widget",
+          "minWidth": "180dp",
+          "minHeight": "110dp",
+          "minResizeWidth": "180dp",
+           "minResizeHeight": "110dp",
+           "resizeMode": "horizontal|vertical",
+          "description": "Quickly open QR scanner",
+          "previewImage": "./assets/widget-preview.png",
+          "updatePeriodMillis": 0,
+          "targetCellWidth": 2,
+          "targetCellHeight": 1
+        }
+      ]
+    }
+  ]
     ],
+      "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": false
+    },
     "extra": {
       "router": {},
       "eas": {
